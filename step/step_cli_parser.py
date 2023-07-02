@@ -21,6 +21,7 @@ ANSI_SEQS = [
 
 class StepCliParser:
     """A class to parse a single step command."""
+    PARSER_VERSION: str = "0.1.0"
     log = logging.getLogger(__name__)
     command_dict: Dict = {}
     command_output: List[str] = []
@@ -28,6 +29,19 @@ class StepCliParser:
     i: int = -1
     line: str = ""
     arg_type: str = ""
+
+    @classmethod
+    def _ver_comp(cls, other: str) -> int:
+        cur_ver = cls.PARSER_VERSION.split(".")
+        other_ver = other.split(".")
+        for i, ver_num in enumerate(cur_ver):
+            if i >= len(other_ver) or ver_num > other_ver[i] or other_ver[i] == "":
+                return 1
+            elif ver_num < other_ver[i]:
+                return -1
+            else:
+                continue
+        return 0
 
     @staticmethod
     def _make_printable(s: str) -> str:
@@ -48,12 +62,12 @@ class StepCliParser:
 
     @staticmethod
     def _arg_param_check(arg: str) -> Tuple[str, str]:
-        """Checks if the arguement has a parameter.
+        """Checks if the argument has a parameter.
         
         Args:
-            arg (str): The arguement.
+            arg (str): The argument.
         Returns:
-            Tuple[str, str]: The arguement and the parameter.
+            Tuple[str, str]: The argument and the parameter.
         """
         param = ""
         if "=" in arg:
@@ -63,10 +77,10 @@ class StepCliParser:
 
     @staticmethod
     def _arg_form_check(arg: str) -> Tuple[str, str]:
-        """Checks if the arguement has two forms.
+        """Checks if the argument has two forms.
         
         Args:
-            arg (str): The arguement.
+            arg (str): The argument.
         Returns:
             Tuple[str, str]: The first form and the second form.
         """
@@ -80,7 +94,7 @@ class StepCliParser:
         self.command = command
         self.command_dict = {
             "__subcommands__": {},
-            "__arguements__": {}
+            "__arguments__": {}
         }
         raw_command_output = subprocess.check_output(command + " --help", shell=True)
         self.command_output = self._make_printable(raw_command_output.decode("utf-8")).split("\n")
@@ -140,13 +154,13 @@ class StepCliParser:
 
 
     def _parse_command_parts(self) -> Tuple[str, Dict[str, str]]:
-        """Parses the command arguements and options.
+        """Parses the command arguments and options.
         
         Args:
             command_output (List[str]): The command output.
             i (int): The index of the option.
         Returns:
-            Dict[str, str]: The parsed command arguements.
+            Dict[str, str]: The parsed command arguments.
         """
         arg_dict = {}
         self.arg_type = self.section.rstrip("s")
@@ -183,7 +197,7 @@ class StepCliParser:
                 continue
             if self.section == "positional arguments" or self.section == "options":
                 arg, arg_dict = self._parse_command_parts()
-                self.command_dict["__arguements__"][arg] = arg_dict
+                self.command_dict["__arguments__"][arg] = arg_dict
                 continue
             if self.section == "commands":
                 if self.line == "":
@@ -199,11 +213,13 @@ class StepCliParser:
         
         if self.command_dict["__subcommands__"] == {}:
             self.command_dict.pop("__subcommands__")
-        if self.command_dict["__arguements__"] == {}:
-            self.command_dict.pop("__arguements__")
+        if self.command_dict["__arguments__"] == {}:
+            self.command_dict.pop("__arguments__")
 
         if dump:
-            json.dump(self.command_dict, open(dump, "w"), indent=4)
+            self.command_dict["__version__"] = self.PARSER_VERSION
+            with open(dump, "w") as dump_file:
+                json.dump(self.command_dict, dump_file, indent=4)
         return self.command_dict
 
 

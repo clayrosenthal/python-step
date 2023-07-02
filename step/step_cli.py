@@ -8,13 +8,20 @@ from typing import Any, Dict, List
 import logging
 
 from step.step_cli_parser import StepCliParser
+from step.models import (
+    StepAdmin,
+    StepSshHost
+)
 
 STEP_JSON = os.environ.get("STEP_JSON", ".step-cli.json")
 
 if shutil.which("step") is None:
     raise FileNotFoundError("step cli not found, refer to https://smallstep.com/docs/cli/ for installation instructions")
 if os.path.isfile(STEP_JSON):
-    _command_dict = json.load(open(STEP_JSON, "r"))
+    with open(STEP_JSON, "r") as step_json:
+        _command_dict = json.load(step_json)
+        if StepCliParser._ver_comp(_command_dict.get("__version__", "0")) > 0:
+            _command_dict = StepCliParser("step").parse(recurse=True, dump=STEP_JSON)
 else:
     _command_dict = StepCliParser("step").parse(recurse=True, dump=STEP_JSON)
 
@@ -42,10 +49,30 @@ class StepCli:
             self.log.debug(f"global args passed: {kwargs}")
             self._global_args = kwargs
     
+    def __str__(self) -> str:
+        return self.command
+
+    def __repr__(self) -> str:
+        return f"StepCli: {self.command}, args: {self._global_args}"
 
     def add_args(self, **kwargs) -> None:
         self._global_args.update(kwargs)
-        
+
+    def _process_output(self, raw_output: str) -> Any:
+        output = raw_output
+        try:
+            output = json.loads(raw_output)
+        except:
+            pass
+        if "admin" in self.command:
+            return [StepAdmin(l) for l in output.split("\n")[1:]]
+        elif self.command == "step ssh hosts":
+            return [StepSshHost(l) for l in output.split("\n")[1:]]
+        elif self.command == "step context list":
+            return [ (l.strip("▶ "), "▶" in l) for l in output.split("\n") ]
+        elif self.command == "step ca health":
+            return output == "ok"
+        return output
     
     def __getattribute__(self, name: str) -> Any:
         """Gets the attribute of the StepCli class.
@@ -58,17 +85,17 @@ class StepCli:
         """
         if name in object.__getattribute__(self, "__dict__"):
             return object.__getattribute__(self, name)
-        if name in self.command_dict.get("__subcommands__", {}):
-            return StepCli(f"{self.command} {name}")
+        if name.lower() in self.command_dict.get("__subcommands__", {}):
+            return StepCli(f"{self.command} {name.lower()}", **self._global_args)
         return object.__getattribute__(self, name)
     
-    def __call__(self, *args: Any, **kwargs: Any) -> Any:
+    def __call__(self, *args: Any, _no_prompt=False, _raw_output=False, **kwargs: Any) -> Any:
         """Runs the command.
         
         Args:
             command (str): The command to run.
         """
-        self.log.debug(f"running command: {self.command}")
+        self.log.debug(f"global args: {self._global_args}")
         self.log.debug(f"args: {args}")
         self.log.debug(f"kwargs: {kwargs}")
         self.log.debug(f"command_dict: {self.command_dict}")
@@ -76,15 +103,17 @@ class StepCli:
         if args:
             command_to_run += " " + " ".join([str(r) for r in args])
         if kwargs:
-            command_to_run += " " + self._make_args(kwargs)
+            command_to_run += " " + self._make_args({**self._global_args, **kwargs})
         try:
-            raw_output = subprocess.check_output(command_to_run, shell=True).decode("utf-8")
+            self.log.info(f"running command: {command_to_run}")
+            _pipe = subprocess.DEVNULL if _no_prompt else None
+            raw_output = subprocess.check_output(command_to_run, shell=True, stdin=_pipe, stderr=_pipe).decode("utf-8").strip()
         except subprocess.CalledProcessError as e:
             self.log.error(f"step return error: {e}")
             return None
 
         self.log.debug(f"raw_output: {raw_output}")
-        return raw_output
+        return raw_output if _raw_output else self._process_output(raw_output)
     
     def _make_args(self, args: Dict[str, Any]) -> str:
         """Makes the arguments string.
@@ -106,5 +135,13 @@ class StepCli:
                 rtn += f" '--{key}={value}'"
         return rtn.strip(" ")
         
+def set_step_defaults(step: StepCli, **kwargs) -> None:
+    step_path = step.path().strip()
+    with open(f"{step_path}/config/defaults.json", "r") as defaults_file:
+        defaults = json.load(defaults_file)
+        defaults.update(kwargs)
+        
+    with open(f"{step_path}/config/defaults.json", "w") as defaults_file:
+        json.dump(defaults, defaults_file, indent=4)
 
 # step = StepCli()

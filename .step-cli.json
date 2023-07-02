@@ -14,7 +14,7 @@
         "path": "print the configured step path and exit",
         "ssh": "create and manage ssh certificates"
     },
-    "__arguements__": {
+    "__arguments__": {
         "help": {
             "description": "show help",
             "alt_form": "h",
@@ -32,7 +32,7 @@
         }
     },
     "help": {
-        "__arguements__": {
+        "__arguments__": {
             "http": {
                 "description": "HTTP service address (e.g., ':8080')",
                 "param": "value",
@@ -56,7 +56,7 @@
     },
     "version": {},
     "base64": {
-        "__arguements__": {
+        "__arguments__": {
             "d": {
                 "description": "decode base64 input",
                 "alt_form": "decode",
@@ -93,7 +93,7 @@
             "policy": "manage certificate issuance policies",
             "admin": "create and manage the certificate authority admins"
         },
-        "__arguements__": {
+        "__arguments__": {
             "help": {
                 "description": "show help",
                 "alt_form": "h",
@@ -101,7 +101,7 @@
             }
         },
         "health": {
-            "__arguements__": {
+            "__arguments__": {
                 "ca-url": {
                     "description": "URI of the targeted Step Certificate Authority.",
                     "param": "URI",
@@ -120,7 +120,7 @@
             }
         },
         "init": {
-            "__arguements__": {
+            "__arguments__": {
                 "root": {
                     "description": "The path of an existing PEM file to be used as the root certificate authority.",
                     "param": "file",
@@ -269,7 +269,7 @@
             }
         },
         "bootstrap": {
-            "__arguements__": {
+            "__arguments__": {
                 "ca-url": {
                     "description": "URI of the targeted Step Certificate Authority.",
                     "param": "URI",
@@ -327,7 +327,7 @@
             }
         },
         "token": {
-            "__arguements__": {
+            "__arguments__": {
                 "subject": {
                     "description": "The Common Name, DNS Name, or IP address that will be set by the certificate authority. When there are no additional Subject Alternative Names configured (via the --san flag), the subject will be added as the only element of the 'sans' claim on the token.",
                     "type": "positional argument"
@@ -490,7 +490,7 @@
             }
         },
         "certificate": {
-            "__arguements__": {
+            "__arguments__": {
                 "subject": {
                     "description": "The Common Name, DNS Name, or IP address that will be set as the Subject Common Name for the certificate. If no Subject Alternative Names (SANs) are configured (via the --san flag) then the subject will be set as the only SAN.",
                     "type": "positional argument"
@@ -680,7 +680,7 @@
             }
         },
         "rekey": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "The certificate in PEM format that we want to rekey.",
                     "type": "positional argument"
@@ -786,7 +786,7 @@
             }
         },
         "renew": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "The certificate in PEM format that we want to renew.",
                     "type": "positional argument"
@@ -876,7 +876,7 @@
             }
         },
         "revoke": {
-            "__arguements__": {
+            "__arguments__": {
                 "serial-number": {
                     "description": "The serial number of the certificate that should be revoked. Can be left blank, either to be supplied by prompt, or when using the --cert and --key flags for revocation over mTLS.",
                     "type": "positional argument"
@@ -941,7 +941,7 @@
                 "remove": "remove a provisioner from the CA configuration",
                 "webhook": "create and manage webhooks for a provisioner"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -949,7 +949,7 @@
                 }
             },
             "list": {
-                "__arguements__": {
+                "__arguments__": {
                     "ca-url": {
                         "description": "URI of the targeted Step Certificate Authority.",
                         "param": "URI",
@@ -968,7 +968,7 @@
                 }
             },
             "jwe-key": {
-                "__arguements__": {
+                "__arguments__": {
                     "ca-url": {
                         "description": "URI of the targeted Step Certificate Authority.",
                         "param": "URI",
@@ -987,7 +987,7 @@
                 }
             },
             "add": {
-                "__arguements__": {
+                "__arguments__": {
                     "name": {
                         "description": "The name of the provisioner.",
                         "type": "positional argument"
@@ -1290,7 +1290,7 @@
                 }
             },
             "update": {
-                "__arguements__": {
+                "__arguments__": {
                     "name": {
                         "description": "The new name for the provisioner.",
                         "param": "name",
@@ -1639,7 +1639,7 @@
                 }
             },
             "remove": {
-                "__arguements__": {
+                "__arguments__": {
                     "admin-cert": {
                         "description": "Admin certificate (chain) in PEM format to store in the 'x5c' header of a JWT.",
                         "param": "chain",
@@ -1696,7 +1696,7 @@
                     "update": "update a webhook attached to a provisioner",
                     "remove": "remove a webhook from a provisioner"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -1704,7 +1704,7 @@
                     }
                 },
                 "add": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner_name": {
                             "description": "The name of the provisioner.",
                             "type": "positional argument"
@@ -1798,7 +1798,7 @@
                     }
                 },
                 "update": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner_name": {
                             "description": "The name of the provisioner.",
                             "type": "positional argument"
@@ -1892,7 +1892,7 @@
                     }
                 },
                 "remove": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner_name": {
                             "description": "The name of the provisioner.",
                             "type": "positional argument"
@@ -1954,7 +1954,7 @@
             }
         },
         "sign": {
-            "__arguements__": {
+            "__arguments__": {
                 "csr-file": {
                     "description": "File with the certificate signing request (PEM format)",
                     "type": "positional argument"
@@ -2099,7 +2099,7 @@
             }
         },
         "root": {
-            "__arguements__": {
+            "__arguments__": {
                 "root-file": {
                     "description": "File to write root certificate (PEM format)",
                     "type": "positional argument"
@@ -2127,7 +2127,7 @@
             }
         },
         "roots": {
-            "__arguements__": {
+            "__arguments__": {
                 "roots-file": {
                     "description": "File to write all the root certificates (PEM format)",
                     "type": "positional argument"
@@ -2155,7 +2155,7 @@
             }
         },
         "federation": {
-            "__arguements__": {
+            "__arguments__": {
                 "federation-file": {
                     "description": "File to write federation certificates (PEM format)",
                     "type": "positional argument"
@@ -2186,7 +2186,7 @@
             "__subcommands__": {
                 "eab": "create and manage ACME External Account Binding Keys"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -2199,7 +2199,7 @@
                     "add": "add ACME External Account Binding Key",
                     "remove": "remove an ACME EAB Key from the CA"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -2207,7 +2207,7 @@
                     }
                 },
                 "list": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner": {
                             "description": "Name of the provisioner to list ACME EAB keys for",
                             "type": "positional argument"
@@ -2271,7 +2271,7 @@
                     }
                 },
                 "add": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner": {
                             "description": "Name of the provisioner to which the ACME EAB key will be added",
                             "type": "positional argument"
@@ -2326,7 +2326,7 @@
                     }
                 },
                 "remove": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner": {
                             "description": "Name of the provisioner to remove an ACME EAB key for",
                             "type": "positional argument"
@@ -2388,7 +2388,7 @@
                 "provisioner": "manage certificate issuance policies for provisioners",
                 "acme": "manage certificate issuance policies for ACME accounts."
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -2402,7 +2402,7 @@
                     "x509": "manage X.509 certificate issuance policies",
                     "ssh": "manage SSH certificate issuance policies"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -2410,7 +2410,7 @@
                     }
                 },
                 "view": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner": {
                             "description": "The provisioner name",
                             "param": "name",
@@ -2472,7 +2472,7 @@
                     }
                 },
                 "remove": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner": {
                             "description": "The provisioner name",
                             "param": "name",
@@ -2539,7 +2539,7 @@
                         "deny": "manage denied names for X.509 certificate issuance policies",
                         "wildcards": "manage wildcard name settings for X.509 certificate issuance policies"
                     },
-                    "__arguements__": {
+                    "__arguments__": {
                         "help": {
                             "description": "show help",
                             "alt_form": "h",
@@ -2554,7 +2554,7 @@
                             "ip": "add or remove ip addresses",
                             "uri": "add or remove URI domains"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -2562,7 +2562,7 @@
                             }
                         },
                         "cn": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -2628,7 +2628,7 @@
                             }
                         },
                         "dns": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -2694,7 +2694,7 @@
                             }
                         },
                         "email": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -2750,7 +2750,7 @@
                             }
                         },
                         "ip": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -2816,7 +2816,7 @@
                             }
                         },
                         "uri": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -2880,7 +2880,7 @@
                             "ip": "add or remove ip addresses",
                             "uri": "add or remove URI domains"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -2888,7 +2888,7 @@
                             }
                         },
                         "cn": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -2954,7 +2954,7 @@
                             }
                         },
                         "dns": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -3020,7 +3020,7 @@
                             }
                         },
                         "email": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -3076,7 +3076,7 @@
                             }
                         },
                         "ip": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -3142,7 +3142,7 @@
                             }
                         },
                         "uri": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -3203,7 +3203,7 @@
                             "allow": "allow wildcard names in X.509 certificate issuance policies",
                             "deny": "deny wildcard names in X.509 certificate issuance policies"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -3211,7 +3211,7 @@
                             }
                         },
                         "allow": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -3273,7 +3273,7 @@
                             }
                         },
                         "deny": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -3341,7 +3341,7 @@
                         "host": "manage SSH host certificate issuance policies",
                         "user": "manage SSH user certificate issuance policies"
                     },
-                    "__arguements__": {
+                    "__arguments__": {
                         "help": {
                             "description": "show help",
                             "alt_form": "h",
@@ -3353,7 +3353,7 @@
                             "allow": "manage allowed SSH host certificate principals",
                             "deny": "manage denied dSSH host certificate principals"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -3366,7 +3366,7 @@
                                 "email": "add or remove email addresses",
                                 "principal": "add or remove principals"
                             },
-                            "__arguements__": {
+                            "__arguments__": {
                                 "help": {
                                     "description": "show help",
                                     "alt_form": "h",
@@ -3374,7 +3374,7 @@
                                 }
                             },
                             "dns": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -3440,7 +3440,7 @@
                                 }
                             },
                             "email": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -3496,7 +3496,7 @@
                                 }
                             },
                             "principal": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -3558,7 +3558,7 @@
                                 "email": "add or remove email addresses",
                                 "principal": "add or remove principals"
                             },
-                            "__arguements__": {
+                            "__arguments__": {
                                 "help": {
                                     "description": "show help",
                                     "alt_form": "h",
@@ -3566,7 +3566,7 @@
                                 }
                             },
                             "dns": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -3632,7 +3632,7 @@
                                 }
                             },
                             "email": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -3688,7 +3688,7 @@
                                 }
                             },
                             "principal": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -3750,7 +3750,7 @@
                             "allow": "manage allowed SSH user certificate principals",
                             "deny": "manage denied SSH user certificate principals"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -3762,7 +3762,7 @@
                                 "email": "add or remove email addresses",
                                 "principal": "add or remove principals"
                             },
-                            "__arguements__": {
+                            "__arguments__": {
                                 "help": {
                                     "description": "show help",
                                     "alt_form": "h",
@@ -3770,7 +3770,7 @@
                                 }
                             },
                             "email": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -3826,7 +3826,7 @@
                                 }
                             },
                             "principal": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -3887,7 +3887,7 @@
                                 "email": "add or remove email addresses",
                                 "principal": "add or remove principals"
                             },
-                            "__arguements__": {
+                            "__arguments__": {
                                 "help": {
                                     "description": "show help",
                                     "alt_form": "h",
@@ -3895,7 +3895,7 @@
                                 }
                             },
                             "email": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -3951,7 +3951,7 @@
                                 }
                             },
                             "principal": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -4017,7 +4017,7 @@
                     "x509": "manage X.509 certificate issuance policies",
                     "ssh": "manage SSH certificate issuance policies"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -4025,7 +4025,7 @@
                     }
                 },
                 "view": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner": {
                             "description": "The provisioner name",
                             "param": "name",
@@ -4087,7 +4087,7 @@
                     }
                 },
                 "remove": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner": {
                             "description": "The provisioner name",
                             "param": "name",
@@ -4154,7 +4154,7 @@
                         "deny": "manage denied names for X.509 certificate issuance policies",
                         "wildcards": "manage wildcard name settings for X.509 certificate issuance policies"
                     },
-                    "__arguements__": {
+                    "__arguments__": {
                         "help": {
                             "description": "show help",
                             "alt_form": "h",
@@ -4169,7 +4169,7 @@
                             "ip": "add or remove ip addresses",
                             "uri": "add or remove URI domains"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -4177,7 +4177,7 @@
                             }
                         },
                         "cn": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4243,7 +4243,7 @@
                             }
                         },
                         "dns": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4309,7 +4309,7 @@
                             }
                         },
                         "email": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4365,7 +4365,7 @@
                             }
                         },
                         "ip": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4431,7 +4431,7 @@
                             }
                         },
                         "uri": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4495,7 +4495,7 @@
                             "ip": "add or remove ip addresses",
                             "uri": "add or remove URI domains"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -4503,7 +4503,7 @@
                             }
                         },
                         "cn": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4569,7 +4569,7 @@
                             }
                         },
                         "dns": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4635,7 +4635,7 @@
                             }
                         },
                         "email": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4691,7 +4691,7 @@
                             }
                         },
                         "ip": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4757,7 +4757,7 @@
                             }
                         },
                         "uri": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4818,7 +4818,7 @@
                             "allow": "allow wildcard names in X.509 certificate issuance policies",
                             "deny": "deny wildcard names in X.509 certificate issuance policies"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -4826,7 +4826,7 @@
                             }
                         },
                         "allow": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4888,7 +4888,7 @@
                             }
                         },
                         "deny": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -4956,7 +4956,7 @@
                         "host": "manage SSH host certificate issuance policies",
                         "user": "manage SSH user certificate issuance policies"
                     },
-                    "__arguements__": {
+                    "__arguments__": {
                         "help": {
                             "description": "show help",
                             "alt_form": "h",
@@ -4968,7 +4968,7 @@
                             "allow": "manage allowed SSH host certificate principals",
                             "deny": "manage denied dSSH host certificate principals"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -4981,7 +4981,7 @@
                                 "email": "add or remove email addresses",
                                 "principal": "add or remove principals"
                             },
-                            "__arguements__": {
+                            "__arguments__": {
                                 "help": {
                                     "description": "show help",
                                     "alt_form": "h",
@@ -4989,7 +4989,7 @@
                                 }
                             },
                             "dns": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -5055,7 +5055,7 @@
                                 }
                             },
                             "email": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -5111,7 +5111,7 @@
                                 }
                             },
                             "principal": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -5173,7 +5173,7 @@
                                 "email": "add or remove email addresses",
                                 "principal": "add or remove principals"
                             },
-                            "__arguements__": {
+                            "__arguments__": {
                                 "help": {
                                     "description": "show help",
                                     "alt_form": "h",
@@ -5181,7 +5181,7 @@
                                 }
                             },
                             "dns": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -5247,7 +5247,7 @@
                                 }
                             },
                             "email": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -5303,7 +5303,7 @@
                                 }
                             },
                             "principal": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -5365,7 +5365,7 @@
                             "allow": "manage allowed SSH user certificate principals",
                             "deny": "manage denied SSH user certificate principals"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -5377,7 +5377,7 @@
                                 "email": "add or remove email addresses",
                                 "principal": "add or remove principals"
                             },
-                            "__arguements__": {
+                            "__arguments__": {
                                 "help": {
                                     "description": "show help",
                                     "alt_form": "h",
@@ -5385,7 +5385,7 @@
                                 }
                             },
                             "email": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -5441,7 +5441,7 @@
                                 }
                             },
                             "principal": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -5502,7 +5502,7 @@
                                 "email": "add or remove email addresses",
                                 "principal": "add or remove principals"
                             },
-                            "__arguements__": {
+                            "__arguments__": {
                                 "help": {
                                     "description": "show help",
                                     "alt_form": "h",
@@ -5510,7 +5510,7 @@
                                 }
                             },
                             "email": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -5566,7 +5566,7 @@
                                 }
                             },
                             "principal": {
-                                "__arguements__": {
+                                "__arguments__": {
                                     "provisioner": {
                                         "description": "The provisioner name",
                                         "param": "name",
@@ -5631,7 +5631,7 @@
                     "remove": "remove certificate issuance policy",
                     "x509": "manage X.509 certificate issuance policies"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -5639,7 +5639,7 @@
                     }
                 },
                 "view": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner": {
                             "description": "The provisioner name",
                             "param": "name",
@@ -5701,7 +5701,7 @@
                     }
                 },
                 "remove": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "provisioner": {
                             "description": "The provisioner name",
                             "param": "name",
@@ -5768,7 +5768,7 @@
                         "deny": "manage denied names for X.509 certificate issuance policies",
                         "wildcards": "manage wildcard name settings for X.509 certificate issuance policies"
                     },
-                    "__arguements__": {
+                    "__arguments__": {
                         "help": {
                             "description": "show help",
                             "alt_form": "h",
@@ -5783,7 +5783,7 @@
                             "ip": "add or remove ip addresses",
                             "uri": "add or remove URI domains"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -5791,7 +5791,7 @@
                             }
                         },
                         "cn": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -5857,7 +5857,7 @@
                             }
                         },
                         "dns": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -5923,7 +5923,7 @@
                             }
                         },
                         "email": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -5979,7 +5979,7 @@
                             }
                         },
                         "ip": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -6045,7 +6045,7 @@
                             }
                         },
                         "uri": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -6109,7 +6109,7 @@
                             "ip": "add or remove ip addresses",
                             "uri": "add or remove URI domains"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -6117,7 +6117,7 @@
                             }
                         },
                         "cn": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -6183,7 +6183,7 @@
                             }
                         },
                         "dns": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -6249,7 +6249,7 @@
                             }
                         },
                         "email": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -6305,7 +6305,7 @@
                             }
                         },
                         "ip": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -6371,7 +6371,7 @@
                             }
                         },
                         "uri": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -6432,7 +6432,7 @@
                             "allow": "allow wildcard names in X.509 certificate issuance policies",
                             "deny": "deny wildcard names in X.509 certificate issuance policies"
                         },
-                        "__arguements__": {
+                        "__arguments__": {
                             "help": {
                                 "description": "show help",
                                 "alt_form": "h",
@@ -6440,7 +6440,7 @@
                             }
                         },
                         "allow": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -6502,7 +6502,7 @@
                             }
                         },
                         "deny": {
-                            "__arguements__": {
+                            "__arguments__": {
                                 "provisioner": {
                                     "description": "The provisioner name",
                                     "param": "name",
@@ -6574,7 +6574,7 @@
                 "remove": "remove an admin from the CA configuration",
                 "update": "update an admin"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -6582,7 +6582,7 @@
                 }
             },
             "list": {
-                "__arguements__": {
+                "__arguments__": {
                     "super": {
                         "description": "Only return super-admins.",
                         "type": "option"
@@ -6638,7 +6638,7 @@
                 }
             },
             "add": {
-                "__arguements__": {
+                "__arguments__": {
                     "subject": {
                         "description": "The subject name that must appear in the identifying credential of the admin.",
                         "type": "positional argument"
@@ -6697,7 +6697,7 @@
                 }
             },
             "remove": {
-                "__arguements__": {
+                "__arguments__": {
                     "name": {
                         "description": "The name of the admin to be removed.",
                         "type": "positional argument"
@@ -6753,7 +6753,7 @@
                 }
             },
             "update": {
-                "__arguements__": {
+                "__arguments__": {
                     "id": {
                         "description": "The name of the admin to update.",
                         "type": "positional argument"
@@ -6818,7 +6818,7 @@
         "__subcommands__": {
             "ca": "commands that are made available for testing new features and APIs"
         },
-        "__arguements__": {
+        "__arguments__": {
             "help": {
                 "description": "show help",
                 "alt_form": "h",
@@ -6829,7 +6829,7 @@
             "__subcommands__": {
                 "acme": "manage ACME settings"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -6840,7 +6840,7 @@
                 "__subcommands__": {
                     "eab": "create and manage ACME External Account Binding Keys"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -6853,7 +6853,7 @@
                         "add": "add ACME External Account Binding Key",
                         "remove": "remove an ACME EAB Key from the CA"
                     },
-                    "__arguements__": {
+                    "__arguments__": {
                         "help": {
                             "description": "show help",
                             "alt_form": "h",
@@ -6861,7 +6861,7 @@
                         }
                     },
                     "list": {
-                        "__arguements__": {
+                        "__arguments__": {
                             "provisioner": {
                                 "description": "Name of the provisioner to list ACME EAB keys for",
                                 "type": "positional argument"
@@ -6925,7 +6925,7 @@
                         }
                     },
                     "add": {
-                        "__arguements__": {
+                        "__arguments__": {
                             "provisioner": {
                                 "description": "Name of the provisioner to which the ACME EAB key will be added",
                                 "type": "positional argument"
@@ -6980,7 +6980,7 @@
                         }
                     },
                     "remove": {
-                        "__arguements__": {
+                        "__arguments__": {
                             "provisioner": {
                                 "description": "Name of the provisioner to remove an ACME EAB key for",
                                 "type": "positional argument"
@@ -7054,7 +7054,7 @@
             "uninstall": "uninstall a root certificate from the system truststore",
             "p12": "package a certificate and keys into a .p12 file"
         },
-        "__arguements__": {
+        "__arguments__": {
             "help": {
                 "description": "show help",
                 "alt_form": "h",
@@ -7062,7 +7062,7 @@
             }
         },
         "bundle": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "The path to a leaf certificate to bundle with issuing certificate(s).",
                     "type": "positional argument"
@@ -7083,7 +7083,7 @@
             }
         },
         "create": {
-            "__arguements__": {
+            "__arguments__": {
                 "subject": {
                     "description": "The subject of the certificate. Typically this is a hostname for services or an email address for people.",
                     "type": "positional argument"
@@ -7201,7 +7201,7 @@
             }
         },
         "format": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "Path to a certificate or CSR file.",
                     "type": "positional argument"
@@ -7219,7 +7219,7 @@
             }
         },
         "inspect": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "Path to a certificate or certificate signing request (CSR) to inspect. A hyphen (\"-\") indicates STDIN as crt-file.",
                     "type": "positional argument"
@@ -7254,7 +7254,7 @@
             }
         },
         "fingerprint": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "A certificate PEM file, usually the root certificate.",
                     "type": "positional argument"
@@ -7289,7 +7289,7 @@
             }
         },
         "lint": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "Path to a certificate or certificate signing request (CSR) to lint.",
                     "type": "positional argument"
@@ -7311,7 +7311,7 @@
             }
         },
         "needs-renewal": {
-            "__arguements__": {
+            "__arguments__": {
                 "cert-file or hostname": {
                     "description": "The path to a certificate OR a hostname with protocol prefix.",
                     "type": "positional argument"
@@ -7343,7 +7343,7 @@
             }
         },
         "sign": {
-            "__arguements__": {
+            "__arguments__": {
                 "csr-file": {
                     "description": "The path to a certificate signing request (CSR) to be signed.",
                     "type": "positional argument"
@@ -7408,7 +7408,7 @@
             }
         },
         "verify": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "The path to a certificate to validate.",
                     "type": "positional argument"
@@ -7431,7 +7431,7 @@
             }
         },
         "key": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "Path to a certificate or certificate signing request (CSR).",
                     "type": "positional argument"
@@ -7450,7 +7450,7 @@
             }
         },
         "install": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "Certificate to install in the system truststore",
                     "type": "positional argument"
@@ -7479,7 +7479,7 @@
             }
         },
         "uninstall": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "Certificate to uninstall from the system truststore",
                     "type": "positional argument"
@@ -7508,7 +7508,7 @@
             }
         },
         "p12": {
-            "__arguements__": {
+            "__arguments__": {
                 "ca": {
                     "description": "The path to the file containing a CA or intermediate certificate to add to the .p12 file. Use the '--ca' flag multiple times to add multiple CAs or intermediates.",
                     "param": "file",
@@ -7536,7 +7536,7 @@
         }
     },
     "completion": {
-        "__arguements__": {
+        "__arguments__": {
             "shell": {
                 "description": "The shell program. Supports bash, zsh, and fish.",
                 "type": "positional argument"
@@ -7550,7 +7550,7 @@
             "remove": "remove a context and all associated configuration",
             "select": "select the default certificate authority context"
         },
-        "__arguements__": {
+        "__arguments__": {
             "help": {
                 "description": "show help",
                 "alt_form": "h",
@@ -7558,7 +7558,7 @@
             }
         },
         "current": {
-            "__arguements__": {
+            "__arguments__": {
                 "json": {
                     "description": "Return stringified JSON containing the main attributes of a context.",
                     "type": "option"
@@ -7567,7 +7567,7 @@
         },
         "list": {},
         "remove": {
-            "__arguements__": {
+            "__arguments__": {
                 "name": {
                     "description": "The name of the context to remove .",
                     "type": "positional argument"
@@ -7585,7 +7585,7 @@
         "__subcommands__": {
             "inspect": "print certificate revocation list (CRL) details in human-readable format"
         },
-        "__arguements__": {
+        "__arguments__": {
             "help": {
                 "description": "show help",
                 "alt_form": "h",
@@ -7593,7 +7593,7 @@
             }
         },
         "inspect": {
-            "__arguements__": {
+            "__arguments__": {
                 "file|url": {
                     "description": "The file or URL where the CRL is. If --from is passed it will inspect the certificate and extract the CRL distribution point from.",
                     "type": "positional argument"
@@ -7640,7 +7640,7 @@
             "otp": "generate and verify one-time passwords",
             "winpe": "extract certificates and verify Windows Portable Executable files"
         },
-        "__arguements__": {
+        "__arguments__": {
             "help": {
                 "description": "show help",
                 "alt_form": "h",
@@ -7648,7 +7648,7 @@
             }
         },
         "change-pass": {
-            "__arguements__": {
+            "__arguments__": {
                 "key-file": {
                     "description": "The PEM or JWK file with the encrypted key.",
                     "type": "positional argument"
@@ -7685,7 +7685,7 @@
             }
         },
         "keypair": {
-            "__arguements__": {
+            "__arguments__": {
                 "pub_file": {
                     "description": "The path to write the public key.",
                     "type": "positional argument"
@@ -7737,7 +7737,7 @@
                 "public": "extract a public JSON Web Key (JWK) from a private JWK",
                 "thumbprint": "compute thumbprint for a JWK"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -7745,7 +7745,7 @@
                 }
             },
             "create": {
-                "__arguements__": {
+                "__arguments__": {
                     "public-jwk-file": {
                         "description": "Path to which the public JWK should be written",
                         "type": "positional argument"
@@ -7814,7 +7814,7 @@
                     "list": "key IDs of JWKs in a JWK Set",
                     "find": "a JWK in a JWK Set"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -7822,7 +7822,7 @@
                     }
                 },
                 "add": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "jwks-file": {
                             "description": "File containing a JWK Set",
                             "type": "positional argument"
@@ -7830,7 +7830,7 @@
                     }
                 },
                 "remove": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "jwks-file": {
                             "description": "File containing a JWK Set",
                             "type": "positional argument"
@@ -7843,7 +7843,7 @@
                     }
                 },
                 "list": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "jwks-file": {
                             "description": "File containing a JWK Set",
                             "type": "positional argument"
@@ -7851,7 +7851,7 @@
                     }
                 },
                 "find": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "jwks-file": {
                             "description": "File containing a JWK Set",
                             "type": "positional argument"
@@ -7873,7 +7873,7 @@
                 "verify": "verify a signed JWT data structure and return the payload",
                 "inspect": "return the decoded JWT without verification"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -7881,7 +7881,7 @@
                 }
             },
             "sign": {
-                "__arguements__": {
+                "__arguments__": {
                     "alg": {
                         "description": "The signature or MAC algorithm to use. Algorithms are case-sensitive strings defined in RFC7518. The selected algorithm must be compatible with the key type. This flag is optional. If not specified, the \"alg\" member of the JWK is used. If the JWK has no \"alg\" member then a default is selected depending on the JWK key type. If the JWK has an \"alg\" member and the \"alg\" flag is passed the two options must match unless the '--subtle' flag is also passed.  algorithm is a case-sensitive string and must be one of:  HS256 HMAC using SHA-256 (default for \"oct\" key type)  HS384 HMAC using SHA-384  HS512 HMAC using SHA-512  RS256 RSASSA-PKCS1-v1_5 using SHA-256 (default for \"RSA\" key type)  RS384 RSASSA-PKCS1-v1_5 using SHA-384  RS512 RSASSA-PKCS1-v1_5 using SHA-512  ES256 ECDSA using P-256 and SHA-256 (default for \"EC\" key type)  ES384 ECDSA using P-384 and SHA-384  ES512 ECDSA using P-521 and SHA-512  PS256 RSASSA-PSS using SHA-256 and MGF1 with SHA-256  PS384 RSASSA-PSS using SHA-384 and MGF1 with SHA-384  PS512 RSASSA-PSS using SHA-512 and MGF1 with SHA-512  EdDSA EdDSA signature algorithm",
                         "param": "algorithm",
@@ -7973,7 +7973,7 @@
                 }
             },
             "verify": {
-                "__arguements__": {
+                "__arguments__": {
                     "iss": {
                         "description": "The issuer of this JWT. The issuer must match the value of the \"iss\" claim in the JWT. issuer is a case-sensitive string. Required unless disabled with the --subtle flag.",
                         "param": "issuer",
@@ -8021,7 +8021,7 @@
                 "encrypt": "encrypt a payload using JSON Web Encryption (JWE)",
                 "decrypt": "verify a JWE and decrypt ciphertext"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -8029,7 +8029,7 @@
                 }
             },
             "encrypt": {
-                "__arguements__": {
+                "__arguments__": {
                     "alg": {
                         "description": "The cryptographic algorithm used to encrypt or determine the value of the content encryption key (CEK). Algorithms are case-sensitive strings defined in RFC7518. The selected algorithm must be compatible with the key type. This flag is optional. If not specified, the \"alg\" member of the JWK is used. If the JWK has no \"alg\" member then a default is selected depending on the JWK key type. If the JWK has an \"alg\" member and the --alg flag is passed the two options must match unless the --subtle flag is also passed.  key-enc-algorithm is a case-sensitive string and must be one of:  RSA1_5 RSAES-PKCS1-v1_5  RSA-OAEP RSAES OAEP using default parameters  RSA-OAEP-256 (default for RSA keys) RSAES OAEP using SHA-256 and MGF1 with SHA-256  A128KW AES Key Wrap with default initial value using 128-bit key  A192KW AES Key Wrap with default initial value using 192-bit key  A256KW AES Key Wrap with default initial value using 256-bit key  dir Direct use of a shared symmetric key as the content encryption key (CEK)  ECDH-ES (default for EC keys) Elliptic Curve Diffie-Hellman Ephemeral Static key agreement  ECDH-ES+A128KW ECDH-ES using Concat KDF and CEK wrapped with \"A128KW  ECDH-ES+A192KW ECDH-ES using Concat KDF and CEK wrapped with \"A192KW  ECDH-ES+A256KW ECDH-ES using Concat KDF and CEK wrapped with \"A256KW  A128GCMKW Key wrapping with AES GCM using 128-bit key  A192GCMKW Key wrapping with AES GCM using 192-bit key  A256GCMKW (default for oct keys) Key wrapping with AES GCM using 256-bit key  PBES2-HS256+A128KW PBES2 with HMAC SHA-256 and \"A128KW\" wrapping  PBES2-HS384+A192KW PBES2 with HMAC SHA-256 and \"A192KW\" wrapping  PBES2-HS512+A256KW PBES2 with HMAC SHA-256 and \"A256KW\" wrapping",
                         "param": "key-enc-algorithm",
@@ -8071,7 +8071,7 @@
                 }
             },
             "decrypt": {
-                "__arguements__": {
+                "__arguments__": {
                     "key": {
                         "description": "The argument should be the name of a file containing a private JWK (or a JWK encrypted as a JWE payload) or a PEM encoded private key (or a private key encrypted using the modes described on RFC 1423 or with PBES2+PBKDF2 described in RFC 2898).",
                         "param": "file",
@@ -8096,7 +8096,7 @@
                 "inspect": "return the decoded JWS without verification",
                 "verify": "verify a signed JWS data structure and return the payload"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -8104,7 +8104,7 @@
                 }
             },
             "sign": {
-                "__arguements__": {
+                "__arguments__": {
                     "alg": {
                         "description": "The signature or MAC algorithm to use. Algorithms are case-sensitive strings defined in RFC7518. The selected algorithm must be compatible with the key type. This flag is optional. If not specified, the \"alg\" member of the JWK is used. If the JWK has no \"alg\" member then a default is selected depending on the JWK key type. If the JWK has an \"alg\" member and the \"alg\" flag is passed the two options must match unless the '--subtle' flag is also passed.  algorithm is a case-sensitive string and must be one of:  HS256 HMAC using SHA-256 (default for \"oct\" key type)  HS384 HMAC using SHA-384  HS512 HMAC using SHA-512  RS256 RSASSA-PKCS1-v1_5 using SHA-256 (default for \"RSA\" key type)  RS384 RSASSA-PKCS1-v1_5 using SHA-384  RS512 RSASSA-PKCS1-v1_5 using SHA-512  ES256 ECDSA using P-256 and SHA-256 (default for \"EC\" key type)  ES384 ECDSA using P-384 and SHA-384  ES512 ECDSA using P-521 and SHA-512  PS256 RSASSA-PSS using SHA-256 and MGF1 with SHA-256  PS384 RSASSA-PSS using SHA-384 and MGF1 with SHA-384  PS512 RSASSA-PSS using SHA-512 and MGF1 with SHA-512  EdDSA EdDSA signature algorithm",
                         "param": "algorithm",
@@ -8166,7 +8166,7 @@
                 }
             },
             "inspect": {
-                "__arguements__": {
+                "__arguments__": {
                     "json": {
                         "description": "Displays the header, payload and signature as a JSON object. The payload will be encoded using Base64.",
                         "type": "option"
@@ -8174,7 +8174,7 @@
                 }
             },
             "verify": {
-                "__arguements__": {
+                "__arguments__": {
                     "alg": {
                         "description": "The signature or MAC algorithm to use. Algorithms are case-sensitive strings defined in RFC7518. If the key used do verify the JWS is not a JWK, or if it is a JWK but does not have an \"alg\" member indicating its the intended algorithm for use with the key, then the --alg flag is required to prevent algorithm downgrade attacks. To disable this protection you can pass the --insecure flag and omit the --alg flag.",
                         "param": "algorithm",
@@ -8207,7 +8207,7 @@
             "__subcommands__": {
                 "format": "swap serialization format"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -8221,7 +8221,7 @@
                 "digest": "generate a hash digest of a file or directory",
                 "compare": "verify the hash digest for a file or directory matches an expected value"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -8229,7 +8229,7 @@
                 }
             },
             "digest": {
-                "__arguements__": {
+                "__arguments__": {
                     "file-or-directory": {
                         "description": "The path to a file or directory to hash.",
                         "type": "positional argument"
@@ -8242,7 +8242,7 @@
                 }
             },
             "compare": {
-                "__arguements__": {
+                "__arguments__": {
                     "hash": {
                         "description": "The expected hash digest",
                         "type": "positional argument"
@@ -8264,7 +8264,7 @@
                 "hash": "derive a secret key from a secret value (e.g., a password)",
                 "compare": "compare a plaintext value (e.g., a password) and a hash"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -8272,7 +8272,7 @@
                 }
             },
             "hash": {
-                "__arguements__": {
+                "__arguments__": {
                     "input": {
                         "description": "The input to the key derivation function. input is optional and its use is not recommended. If this argument is provided the --insecure flag must also be provided because your (presumably secret) input will likely be logged and appear in places you might not expect. If omitted input is read from STDIN.",
                         "type": "positional argument"
@@ -8295,7 +8295,7 @@
                 "sign": "sign a message using an asymmetric key",
                 "verify": "verify a signed message"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -8303,7 +8303,7 @@
                 }
             },
             "format": {
-                "__arguements__": {
+                "__arguments__": {
                     "key-file": {
                         "description": "Path to a file with a public or private key, or the public key of an X.509 certificate.",
                         "type": "positional argument"
@@ -8354,7 +8354,7 @@
                 }
             },
             "public": {
-                "__arguements__": {
+                "__arguments__": {
                     "key-file": {
                         "description": "Path to a private key.",
                         "type": "positional argument"
@@ -8377,7 +8377,7 @@
                 }
             },
             "inspect": {
-                "__arguements__": {
+                "__arguments__": {
                     "key-file": {
                         "description": "Path to a public or private key.",
                         "type": "positional argument"
@@ -8390,7 +8390,7 @@
                 }
             },
             "fingerprint": {
-                "__arguements__": {
+                "__arguments__": {
                     "key-file": {
                         "description": "Path to a public, private key, certificate (X.509 and SSH) or certificate request.",
                         "type": "positional argument"
@@ -8420,7 +8420,7 @@
                 }
             },
             "sign": {
-                "__arguements__": {
+                "__arguments__": {
                     "file": {
                         "description": "File to sign",
                         "type": "positional argument"
@@ -8451,7 +8451,7 @@
                 }
             },
             "verify": {
-                "__arguements__": {
+                "__arguments__": {
                     "file": {
                         "description": "File to verify.",
                         "type": "positional argument"
@@ -8486,7 +8486,7 @@
                 "secretbox": "encrypt and authenticate small messages using secret-key cryptography",
                 "sign": "sign small messages using public-key cryptography"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -8498,7 +8498,7 @@
                     "digest": "generate a 32-byte digest for a message",
                     "verify": "validate a digest for a message"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -8514,7 +8514,7 @@
                     "open": "authenticate and decrypt a box produced by seal",
                     "seal": "produce an authenticated and encrypted ciphertext"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -8522,7 +8522,7 @@
                     }
                 },
                 "keypair": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "pub-file": {
                             "description": "The path to write the public key.",
                             "type": "positional argument"
@@ -8539,7 +8539,7 @@
                     }
                 },
                 "open": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "nonce": {
                             "description": "The nonce provided when the box was sealed.  To use a binary nonce use the prefix 'base64:' and the standard base64 encoding. e.g. base64:081D3pFPBkwx1bURR9HQjiYbAUxigo0Z",
                             "type": "positional argument"
@@ -8559,7 +8559,7 @@
                     }
                 },
                 "seal": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "nonce": {
                             "description": "Must be unique for each distinct message for a given pair of keys.  To use a binary nonce use the prefix 'base64:' and the standard base64 encoding. e.g. base64:081D3pFPBkwx1bURR9HQjiYbAUxigo0Z",
                             "type": "positional argument"
@@ -8584,7 +8584,7 @@
                     "open": "authenticate and decrypt a box produced by seal",
                     "seal": "produce an encrypted ciphertext"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -8592,7 +8592,7 @@
                     }
                 },
                 "open": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "nonce": {
                             "description": "The nonce provided when the secretbox was sealed.  To use a binary nonce use the prefix 'base64:' and the standard base64 encoding. e.g. base64:081D3pFPBkwx1bURR9HQjiYbAUxigo0Z",
                             "type": "positional argument"
@@ -8608,7 +8608,7 @@
                     }
                 },
                 "seal": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "nonce": {
                             "description": "Must be unique for each distinct message for a given key.  To use a binary nonce use the prefix 'base64:' and the standard base64 encoding. e.g. base64:081D3pFPBkwx1bURR9HQjiYbAUxigo0Z",
                             "type": "positional argument"
@@ -8630,7 +8630,7 @@
                     "open": "verify a signed message produced by sign",
                     "sign": "sign a message using Ed25519"
                 },
-                "__arguements__": {
+                "__arguments__": {
                     "help": {
                         "description": "show help",
                         "alt_form": "h",
@@ -8638,7 +8638,7 @@
                     }
                 },
                 "keypair": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "f": {
                             "description": "Force the overwrite of files without asking.",
                             "alt_form": "force",
@@ -8647,7 +8647,7 @@
                     }
                 },
                 "open": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "raw": {
                             "description": "Indicates that input is not base64 encoded",
                             "type": "option"
@@ -8655,7 +8655,7 @@
                     }
                 },
                 "sign": {
-                    "__arguements__": {
+                    "__arguments__": {
                         "raw": {
                             "description": "Do not base64 encode output",
                             "type": "option"
@@ -8669,7 +8669,7 @@
                 "generate": "generate a one-time password",
                 "verify": "verify a one-time password"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -8677,7 +8677,7 @@
                 }
             },
             "generate": {
-                "__arguements__": {
+                "__arguments__": {
                     "issuer": {
                         "description": "Name of the issuing organization (e.g., smallstep.com)",
                         "param": "value",
@@ -8728,7 +8728,7 @@
                 }
             },
             "verify": {
-                "__arguements__": {
+                "__arguments__": {
                     "secret": {
                         "description": "The file containing TOTP secret.",
                         "param": "file",
@@ -8768,7 +8768,7 @@
             "__subcommands__": {
                 "extract": "extract certificates from Windows Portable Executable files"
             },
-            "__arguements__": {
+            "__arguments__": {
                 "help": {
                     "description": "show help",
                     "alt_form": "h",
@@ -8776,7 +8776,7 @@
                 }
             },
             "extract": {
-                "__arguements__": {
+                "__arguments__": {
                     "file": {
                         "description": "The path to a Windows Portable Executable file",
                         "type": "positional argument"
@@ -8786,7 +8786,7 @@
         }
     },
     "oauth": {
-        "__arguements__": {
+        "__arguments__": {
             "provider": {
                 "description": "OAuth provider for authentication",
                 "param": "value",
@@ -8888,7 +8888,7 @@
         }
     },
     "path": {
-        "__arguements__": {
+        "__arguments__": {
             "base": {
                 "description": "Return the base of the step path",
                 "type": "option"
@@ -8916,7 +8916,7 @@
             "renew": "renew a SSH certificate using the SSH CA",
             "revoke": "revoke a SSH certificate using the SSH CA"
         },
-        "__arguements__": {
+        "__arguments__": {
             "help": {
                 "description": "show help",
                 "alt_form": "h",
@@ -8924,7 +8924,7 @@
             }
         },
         "certificate": {
-            "__arguements__": {
+            "__arguments__": {
                 "key-id": {
                     "description": "The certificate identity. If no principals are passed we will use the key-id as a principal, if it has the format abc@def then the principal will be abc.",
                     "type": "positional argument"
@@ -9081,7 +9081,7 @@
             }
         },
         "check-host": {
-            "__arguements__": {
+            "__arguments__": {
                 "hostname": {
                     "description": "The hostname of the server to check.",
                     "type": "positional argument"
@@ -9118,7 +9118,7 @@
             }
         },
         "config": {
-            "__arguements__": {
+            "__arguments__": {
                 "host": {
                     "description": "Configures a SSH server instead of a client.",
                     "type": "option"
@@ -9202,7 +9202,7 @@
             }
         },
         "fingerprint": {
-            "__arguements__": {
+            "__arguments__": {
                 "file": {
                     "description": "The path to an SSH public key or certificate.",
                     "type": "positional argument"
@@ -9219,7 +9219,7 @@
             }
         },
         "hosts": {
-            "__arguements__": {
+            "__arguments__": {
                 "set": {
                     "description": "The key=value pair with template data variables. Use the --set flag multiple times to add multiple variables.",
                     "param": "key",
@@ -9257,7 +9257,7 @@
             }
         },
         "inspect": {
-            "__arguements__": {
+            "__arguments__": {
                 "crt-file": {
                     "description": "The path to an ssh certificate.",
                     "type": "positional argument"
@@ -9270,7 +9270,7 @@
             }
         },
         "list": {
-            "__arguements__": {
+            "__arguments__": {
                 "subject": {
                     "description": "Optional subject or comment to filter keys by.",
                     "type": "positional argument"
@@ -9282,7 +9282,7 @@
             }
         },
         "login": {
-            "__arguements__": {
+            "__arguments__": {
                 "identity": {
                     "description": "The certificate identity. It is usually passed as a positional argument, but a flag exists so it can be configured in $STEPPATH/config/defaults.json.",
                     "param": "value",
@@ -9367,7 +9367,7 @@
             }
         },
         "logout": {
-            "__arguements__": {
+            "__arguments__": {
                 "identity": {
                     "description": "The certificate identity. It is usually passed as a positional argument, but a flag exists so it can be configured in $STEPPATH/config/defaults.json.",
                     "param": "value",
@@ -9404,7 +9404,7 @@
             }
         },
         "needs-renewal": {
-            "__arguements__": {
+            "__arguments__": {
                 "cert-file": {
                     "description": "The path to an SSH certificate.",
                     "type": "positional argument"
@@ -9422,7 +9422,7 @@
             }
         },
         "proxycommand": {
-            "__arguements__": {
+            "__arguments__": {
                 "user": {
                     "description": "The remote username, and the subject used to login.",
                     "type": "positional argument"
@@ -9484,7 +9484,7 @@
             }
         },
         "rekey": {
-            "__arguements__": {
+            "__arguments__": {
                 "ssh-cert": {
                     "description": "The ssh certificate to renew.",
                     "type": "positional argument"
@@ -9559,7 +9559,7 @@
             }
         },
         "renew": {
-            "__arguements__": {
+            "__arguments__": {
                 "ssh-cert": {
                     "description": "The ssh certificate to renew.",
                     "type": "positional argument"
@@ -9627,7 +9627,7 @@
             }
         },
         "revoke": {
-            "__arguements__": {
+            "__arguments__": {
                 "serial-number": {
                     "description": "The serial number of the SSH certificate to revoke.",
                     "type": "positional argument"
@@ -9704,5 +9704,6 @@
                 }
             }
         }
-    }
+    },
+    "__version__": "0.1.0"
 }
