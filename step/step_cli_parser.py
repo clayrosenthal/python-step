@@ -205,6 +205,11 @@ class StepCliParser:
                 subcommand, description = self._parse_subcommand()
                 self.command_dict["__subcommands__"][subcommand] = description
                 continue
+            if self.section == "version":
+                step_version = self.line[self.line.index("CLI/")+4:].strip()
+                step_version = self._remove_ansi_sequences(step_version)
+                self.command_dict["__cli_version__"] = step_version
+                continue
         
         self.log.info(f"command_dict: {self.command_dict}")
         if recurse:

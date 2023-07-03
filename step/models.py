@@ -1,6 +1,23 @@
 
 from typing import List
+from datetime import datetime
 
+class StepVersion:
+    version: str
+    platform: str
+    release: datetime
+
+    def __init__(self, output: str) -> None:
+        self.version = output[output.index("CLI/")+4:].split()[0]
+        self.platform = output[output.index("(")+1:output.index(")")]
+        self.release = datetime.fromisoformat(output[output.index(":")+2:].replace(' UTC','Z').replace(' ','T'))
+    
+    def __repr__(self) -> str:
+        return (
+            f"version: {self.version}, " +
+            f"platform: {self.platform}, " + 
+            f"release: {self.release.isoformat()}"
+        )
 
 class StepAdmin:
     subject: str
