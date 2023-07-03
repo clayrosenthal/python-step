@@ -1,4 +1,20 @@
 #!/usr/bin/env python3
+"""
+Copyright (C) 2023 Clayton Rosenthal
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 import subprocess
 import string
 from typing import Dict, List, Tuple
@@ -199,13 +215,11 @@ class StepCliParser:
                 arg, arg_dict = self._parse_command_parts()
                 self.command_dict["__arguments__"][arg] = arg_dict
                 continue
-            if self.section == "commands":
-                if self.line == "":
-                    continue
+            if self.section == "commands" and self.line:
                 subcommand, description = self._parse_subcommand()
                 self.command_dict["__subcommands__"][subcommand] = description
                 continue
-            if self.section == "version":
+            if self.section == "version" and self.line:
                 step_version = self.line[self.line.index("CLI/")+4:].strip()
                 step_version = self._remove_ansi_sequences(step_version)
                 self.command_dict["__cli_version__"] = step_version

@@ -1,12 +1,25 @@
-# pyproject.toml
+
+[project]
+name = "smallstep-py"
+version = "0.1.0"
+description = "Python library to interact with smallstep private ca"
+authors = [
+    {name = "Clayton Rosenthal", email = "clayrosenthal@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "GPLv3+"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Topic :: Security",
+    "Topic :: Internet :: WWW/HTTP",
+]
+
 [build-system]
-requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.0"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools_scm]
-
-[tool.towncrier]
-package = "step"
-filename = "CHANGELOG.md"
-issue_format = "`#{issue} <https://github.com/pypa/twine/issues/{issue}>`_"
-underlines = ["-", "^"]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

@@ -1,4 +1,19 @@
-# Python class to run step cli commands nicely from python
+"""
+Copyright (C) 2023 Clayton Rosenthal
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 
 import json
 import shutil
@@ -24,28 +39,35 @@ else:
 
 class StepCli:
     """Class to run step cli commands nicely from python."""
-    _command: str = ""
-    _command_dict: Dict = {}
-    log: logging.Logger = logging.getLogger(__name__)
-    _global_args = {}
+    _command: str = "" # the command the class is representing
+    _command_dict: Dict = {} # the parsed command, subcommands, arguements, etc.
+    _cached: bool = True # whether to use the cached version of the parsed command
+    _log: logging.Logger = logging.getLogger(__name__)
+    _global_args = {} # global args to pass to the command
 
-    def __init__(self, command: str = "step", **kwargs) -> None:
+    def __init__(self, _command: str = "step", _cached=True, **kwargs) -> None:
         """Initializes the StepCli class."""
-        if not command.startswith("step"):
-            command = f"step {command}"
-        self._command = command
+        if not _command.startswith("step"):
+            _command = f"step {_command}"
+        self._command = _command
+        self._cached = _cached
         self._log = logging.getLogger(__name__)
-        self._log.debug(f"command: {command}")
-        command_list = command.split(" ")
+        self._log.debug(f"command: {_command}")
+        if kwargs:
+            self._log.debug(f"global args passed: {kwargs}")
+            self._global_args = kwargs
+
+        if not _cached:
+            self._command_dict = StepCliParser(command=_command).parse()
+            return
         # step itself isn't in dict, is the top level
         self._command_dict = _base_command_dict 
+        command_list = _command.split(" ")
         for part in command_list[1:]:
             self._log.debug(f"part: {part}")
             self._command_dict = self._command_dict.get(part, {})
         
-        if kwargs:
-            self._log.debug(f"global args passed: {kwargs}")
-            self._global_args = kwargs
+
     
     def __str__(self) -> str:
         return self._command
@@ -58,10 +80,6 @@ class StepCli:
 
     def _process_output(self, raw_output: str) -> Any:
         output = raw_output
-        try:
-            output = json.loads(raw_output)
-        except:
-            pass
         if "admin" in self._command:
             return [StepAdmin(l) for l in output.split("\n")[1:]]
         elif self._command == "step ssh hosts":
@@ -72,7 +90,10 @@ class StepCli:
             return output == "ok"
         elif self._command == "step version":
             return StepVersion(output)
-        return output
+        try:
+            output = json.loads(raw_output)
+        except:
+            return output
     
     def __getattribute__(self, name: str) -> Any:
         """Gets the attribute of the StepCli class.
@@ -86,7 +107,7 @@ class StepCli:
         if name in object.__getattribute__(self, "__dict__"):
             return object.__getattribute__(self, name)
         if name.lower() in self._command_dict.get("__subcommands__", {}):
-            return StepCli(f"{self._command} {name.lower()}", **self._global_args)
+            return StepCli(f"{self._command} {name.lower()}", _cached=self._cached, **self._global_args)
         return object.__getattribute__(self, name)
     
     def __call__(self, *args: Any, _no_prompt=False, _raw_output=False, **kwargs: Any) -> Any:
@@ -139,13 +160,19 @@ class StepCli:
                 rtn += f" '--{key}={value}'"
         return rtn.strip(" ")
         
-def set_step_defaults(step: StepCli, **kwargs) -> None:
-    step_path = step.path().strip()
-    with open(f"{step_path}/config/defaults.json", "r") as defaults_file:
-        defaults = json.load(defaults_file)
-        defaults.update(kwargs)
-        
-    with open(f"{step_path}/config/defaults.json", "w") as defaults_file:
-        json.dump(defaults, defaults_file, indent=4)
-
-# step = StepCli()
+    def _add_step_defaults(self, **kwargs) -> None:
+        """Adds arguments to the step defaults config file."""
+        if not kwargs:
+            return
+        prev_command = self._command
+        if self._command != "step":
+            self._command = "step"
+        # only works if called from a step command, so save old command if not
+        step_path = self.path() 
+        self._command = prev_command
+        with open(f"{step_path}/config/defaults.json", "r") as defaults_file:
+            defaults = json.load(defaults_file)
+            defaults.update(kwargs)
+            
+        with open(f"{step_path}/config/defaults.json", "w") as defaults_file:
+            json.dump(defaults, defaults_file, indent=4)
