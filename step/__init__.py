@@ -1,5 +1,5 @@
 """
-Copyright (C) 2023 Clayton Rosenthal
+Copyright (C) 2023 Clayton Rosenthal.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,16 +16,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 # Python package to interact with (small)step ca through python
 
-from .models import (
-    StepAdmin,
-    StepSshHost
-)
+from .models import StepAdmin, StepSshHost, StepVersion
 from .step_cli import StepCli
 from .step_cli_parser import StepCliParser
 
 __all__ = [
     "StepAdmin",
     "StepSshHost",
+    "StepVersion",
     "StepCli",
     "StepCliParser",
 ]

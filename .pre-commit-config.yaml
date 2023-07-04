@@ -1,0 +1,114 @@
+---
+repos:
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+    - id: bandit
+      name: 🎰 Checking using bandit
+      args: ["-c", "pyproject.toml"]
+      additional_dependencies: ["bandit[toml]"]
+      require_serial: true
+  - repo: https://github.com/psf/black.git
+    rev: 23.3.0
+    hooks:
+      - id: black
+        name: ☕️ Format using black
+        args: [--quiet]
+        require_serial: true
+  - repo: https://github.com/myint/autoflake.git
+    rev: v2.2.0
+    hooks:
+      - id: autoflake
+        args: ["--in-place", "--remove-all-unused-imports", "--ignore-init-module-imports"]
+        require_serial: true
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: 🔀 Sort all imports with isort
+        args: [--resolve-all-configs]
+        require_serial: true
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        name: 👔 Enforcing style guide with flake8
+        require_serial: true
+
+  - repo: https://github.com/PyCQA/pylint
+    rev: v3.0.0a6
+    hooks:
+      - id: pylint
+        name: 🌟 Starring code with pylint
+        require_serial: true
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.8.0
+    hooks:
+      - id: pyupgrade
+        name:  🆙 Checking for upgradable syntax with pyupgrade
+        language: system
+        types: [python]
+        args: [--py310-plus, --keep-runtime-typing]
+        require_serial: true
+
+  - repo: https://github.com/DanielNoord/pydocstringformatter
+    rev: v0.7.3
+    hooks:
+      - id: pydocstringformatter
+        name: 📝 Fixing docstring formatting with pydocstringformatter
+        language: system
+        types: [python]
+        require_serial: true
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks.git
+    rev: v4.4.0
+    hooks:
+      - id: check-ast
+        name: 🐍 Check Python AST
+        description: Simply check whether files parse as valid python.
+      - id: debug-statements
+        name: 🪵  Debug Statements and imports (Python)
+        types: [python]
+        description: Check for debugger imports and py37+ breakpoint() calls in python source.
+      - id: check-merge-conflict
+        name:  💥 Check for merge conflicts
+        description: Check for files that contain merge conflict strings.
+      - id: check-docstring-first
+        name:  ℹ️  Check docstring is first
+        description: Checks for a common error of placing code before the docstring.
+      - id: detect-private-key
+        entry: detect-private-key
+        name: 🕵️  Detect Private Keys
+        description: Checks for the existence of private keys
+      - id: trailing-whitespace
+        entry: trailing-whitespace-fixer
+        name: ✄  Trim Trailing Whitespace
+        description: Removes trailing whitespace from files.
+      - id: end-of-file-fixer
+        entry: end-of-file-fixer
+        name: ⮐  Fix End of Files
+        language: system
+        types: [text]
+        description: Ensures all files are either empty or end with a newline
+        stages: [commit, push, manual]
+      - id: check-json
+        entry: check-json
+        name: ｛ Check JSON files
+        language: system
+        types: [json]
+      - id: check-toml
+        entry: check-toml
+        name: ✅ Check TOML files
+        language: system
+        types: [toml]
+      - id: check-yaml
+        entry: check-yaml
+        name: ✅ Check YAML files
+        language: system
+        types: [yaml]
+      - id: check-case-conflict
+        entry: check-case-conflict
+        name: 🔠 Check for case conflicts
+        language: system
