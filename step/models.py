@@ -1,5 +1,5 @@
 """
-Copyright (C) 2023 Clayton Rosenthal
+Copyright (C) 2023 Clayton Rosenthal.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,8 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import List
 from datetime import datetime
+
+from cryptography import x509
+
 
 class StepVersion:
     version: str
@@ -24,16 +26,19 @@ class StepVersion:
     release: datetime
 
     def __init__(self, output: str) -> None:
-        self.version = output[output.index("CLI/")+4:].split()[0]
-        self.platform = output[output.index("(")+1:output.index(")")]
-        self.release = datetime.fromisoformat(output[output.index(":")+2:].replace(' UTC','Z').replace(' ','T'))
-    
+        self.version = output[output.index("CLI/") + 4 :].split()[0]
+        self.platform = output[output.index("(") + 1 : output.index(")")]
+        self.release = datetime.fromisoformat(
+            output[output.index(":") + 2 :].replace(" UTC", "Z").replace(" ", "T")
+        )
+
     def __repr__(self) -> str:
         return (
-            f"version: {self.version}, " +
-            f"platform: {self.platform}, " + 
-            f"release: {self.release.isoformat()}"
+            f"version: {self.version}, "
+            + f"platform: {self.platform}, "
+            + f"release: {self.release.isoformat()}"
         )
+
 
 class StepAdmin:
     subject: str
@@ -42,47 +47,57 @@ class StepAdmin:
 
     def __init__(self, line: str) -> None:
         self.subject = line.split()[0].strip()
-        self.provisioner = line[len(self.subject):line.index(")")+1].strip()
-        self.super_admin = bool('SUPER' in line[line.index(")")+1:])
-
+        self.provisioner = line[len(self.subject) : line.index(")") + 1].strip()
+        self.super_admin = bool("SUPER" in line[line.index(")") + 1 :])
 
     def __repr__(self) -> str:
         return (
-            f"subject: {self.subject}, " +
-            f"provisioner: {self.provisioner}, " + 
-            f"type: {'SUPER_ADMIN' if self.super_admin else 'ADMIN'}"
+            f"subject: {self.subject}, "
+            + f"provisioner: {self.provisioner}, "
+            + f"type: {'SUPER_ADMIN' if self.super_admin else 'ADMIN'}"
         )
-    
+
     def __str__(self) -> str:
         return (
-            f"subject: {self.subject}, " +
-            f"provisioner: {self.provisioner}, " + 
-            f"type: {'SUPER_ADMIN' if self.super_admin else 'ADMIN'}"
+            f"subject: {self.subject}, "
+            + f"provisioner: {self.provisioner}, "
+            + f"type: {'SUPER_ADMIN' if self.super_admin else 'ADMIN'}"
         )
+
 
 class StepSshHost:
     hostname: str
     host_id: int = 0
-    tags: List[str] = []
+    tags: list[str] = []
 
     def __init__(self, line: str) -> None:
         self.hostname = line.split(" ")[0].strip()
         if len(self.hostname) == len(line.strip()):
             return
-        host_id_str = line[len(self.hostname):].split()[0].strip()
+        host_id_str = line[len(self.hostname) :].split()[0].strip()
         self.host_id = int(host_id_str) if host_id_str.isdigit() else 0
-        self.tags = line[line.index(host_id_str):].split()
-    
+        self.tags = line[line.index(host_id_str) :].split()
+
     def __repr__(self) -> str:
         return (
-            f"hostname: {self.hostname}" +
-            (f", id: {self.host_id}" if self.host_id else '') + 
-            (f", tags: {', '.join(self.tags)}" if self.tags else '')
+            f"hostname: {self.hostname}"
+            + (f", id: {self.host_id}" if self.host_id else "")
+            + (f", tags: {', '.join(self.tags)}" if self.tags else "")
         )
-    
+
     def __str__(self) -> str:
         return (
-            f"hostname: {self.hostname}" +
-            (f", id: {self.host_id}" if self.host_id else '') + 
-            (f", tags: {', '.join(self.tags)}" if self.tags else '')
+            f"hostname: {self.hostname}"
+            + (f", id: {self.host_id}" if self.host_id else "")
+            + (f", tags: {', '.join(self.tags)}" if self.tags else "")
         )
+
+
+class StepCertificate:
+    cert: x509.Certificate
+    cert_path: str
+
+    def __init__(self, cert_path: str) -> None:
+        self.cert_path = cert_path
+        with open(cert_path, "rb") as f:
+            self.cert = x509.load_pem_x509_certificate(f.read())

@@ -6,7 +6,10 @@ description = "Python library to interact with smallstep private ca"
 authors = [
     {name = "Clayton Rosenthal", email = "clayrosenthal@gmail.com"},
 ]
-dependencies = []
+dependencies = [
+    "cryptography>=41.0.3",
+    "requests>=2.31.0",
+]
 requires-python = ">=3.11"
 readme = "README.md"
 license = {text = "GPLv3+"}
@@ -34,7 +37,15 @@ dev = [
     "pyupgrade>=3.8.0",
     "pydocstringformatter>=0.7.3",
     "pre-commit-hooks>=4.4.0",
+    "pytest>=7.4.0",
+    "cryptography>=41.0.1",
 ]
+
+[tool.pytest]
+testpaths = ["step/tests"]
+
+[tool.pdm.scripts]
+pre_publish = { cmd = "pytest step/" }
 
 [tool.bandit]
 exclude = ["debug_step_cli.spec"]

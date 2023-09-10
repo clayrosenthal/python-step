@@ -16,14 +16,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 # Python package to interact with (small)step ca through python
 
-from .models import StepAdmin, StepSshHost, StepVersion
-from .step_cli import StepCli
-from .step_cli_parser import StepCliParser
+from .cli.step_cli import StepCli
+from .cli.step_cli_parser import StepCliParser
+from .models import StepAdmin, StepCertificate, StepSshHost, StepVersion
+from .python.step_py import StepPy
 
 __all__ = [
     "StepAdmin",
+    "StepCertificate",
     "StepSshHost",
     "StepVersion",
     "StepCli",
     "StepCliParser",
+    "StepPy",
 ]

@@ -17,6 +17,18 @@ The end goal is replicating all the functionality of step-cli within python itse
  - CA initialization
  - CA management (provisioners, policy, etc)
 
+
+## Usage
+The current wrapper is defined as the StepCli class. You can use it as if
+you are using the step-cli, but with `.`'s instead of spaces, and passing the
+parameters to the call, replacing `-`'s with `_`'s.
+```
+from step import StepCli
+step = StepCli()
+step.ca.bootstrap(ca_url="ca.example.com", fingerprint="FINGERPRINTOFYOURCA")
+step.ssh.login(provisioner="OIDC")
+```
+
 ## License
 Licensed under GPLv3+, see [LICENSE](LICENSE) for full license text
 Copyright by Clayton Rosenthal
