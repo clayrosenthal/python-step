@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
 """
-Copyright (C) 2023 Clayton Rosenthal
+Copyright (C) 2023 Clayton Rosenthal.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,63 +16,147 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import argparse
 import json
 import logging
 import os
-import shutil
 import subprocess
-from typing import Any, Dict, List
+from typing import Any
 
-from step.models import *
-from step.step_cli_parser import StepCliParser
+from step.cli.step_cli_parser import StepCliParser
+from step.models import StepAdmin, StepCertificate, StepSshHost, StepVersion
 
 STEP_JSON = os.environ.get("STEP_JSON", ".step-cli.json")
 
-if shutil.which("step") is None:
-    raise FileNotFoundError(
-        "step cli not found, refer to https://smallstep.com/docs/cli/ for installation instructions"
+
+def parse_args():
+    """Parses the command line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Run step cli commands with python wrapper."
     )
-if os.path.isfile(STEP_JSON):
-    with open(STEP_JSON, "r") as step_json:
-        _base_command_dict = json.load(step_json)
-        if StepCliParser._ver_comp(_base_command_dict.get("__version__", "0")) > 0:
-            _base_command_dict = StepCliParser("step").parse(
-                recurse=True, dump=STEP_JSON
-            )
-else:
-    _base_command_dict = StepCliParser("step").parse(recurse=True, dump=STEP_JSON)
+    parser.add_argument("-c", "--command", help="The command to run.", required=True)
+    parser.add_argument(
+        "-a", "--args", help="The args to pass to the command.", nargs="*"
+    )
+    parser.add_argument("-r", "--raw", help="Print raw output.", action="store_true")
+    parser.add_argument(
+        "-s", "--stdin", help="Don't pass stdin to command.", action="store_true"
+    )
+    parser.add_argument(
+        "-e", "--stderr", help="Don't pass stderr to command.", action="store_true"
+    )
+    parser.add_argument("-v", "--verbose", help="Verbose output.", action="store_true")
+
+    args = parser.parse_args()
+    return args
+
+
+if __name__ == "__main__":
+    args = parse_args()
+    command = args.command
+    command_args = args.args
+    raw = args.raw
+    stdin = args.stdin
+    stderr = args.stderr
+    verbose = args.verbose
+    log = logging.getLogger(__name__)
+    if verbose:
+        logging.basicConfig(level=logging.DEBUG)
+        log.debug("command: %s", command)
+        log.debug("command_args: %s", command_args)
+        log.debug("raw: %s", raw)
+        log.debug("stdin: %s", stdin)
+        log.debug("stderr: %s", stderr)
+
+    step = StepCli()
+    for part in command.split(" "):
+        step = getattr(step, part)
+
+    arg_dict = {}
+    if command_args:
+        arg_dict = {a.split("=")[0]: a.split("=")[1] for a in command_args}
+
+    output = step(**arg_dict, _raw_output=raw, _no_stdin=stdin, _no_stderr=stderr)
+    if output:
+        print(f"cmd `{command}`: {output}")
+
+
+class StepArgs:
+    positional: list[str]
+    named: dict[str, str]
+    command: str
+    possible_args: dict[str, str] = {}
+    arg_list: list[str] = []
+
+    def __init__(
+        self,
+        command: str,
+        positional: list[str],
+        named: dict[str, Any],
+        possible_args: dict[str, Any],
+    ) -> None:
+        self.command = command
+        self.positional = positional
+        self.named = named
+        self.possible_args = possible_args
+        self.arg_list = [str(a) for a in self.positional]
+        for key, value in self.named.items():
+            if key.startswith("_"):
+                continue
+            else:
+                key = key.replace("_", "-")
+            if key not in self.possible_args:
+                raise ValueError(
+                    f"argument '{key}' not found in command '{self.command}'"
+                )
+            if value is True:
+                self.arg_list += [f"'--{key}'"]
+            elif isinstance(value, list):
+                for v in value:
+                    self.arg_list += [f"'--{key}={v}'"]
+            else:
+                self.arg_list += [f"'--{key}={value}'"]
+
+    def __repr__(self) -> str:
+        return (
+            f"StepArgs(command={self.command}, positional={self.positional}, "
+            + f"named={self.named}, possible_args={self.possible_args})"
+        )
+
+    def __str__(self) -> str:
+        return " ".join(self.arg_list)
 
 
 class StepCli:
     """Class to run step cli commands nicely from python."""
 
+    _command_stack: list[str] = []  # the stack of parts of the command to run
+    # _cli_dict: dict[str, Any] = {}
     _command: str = ""  # the command the class is representing
-    _command_dict: Dict = {}  # the parsed command, subcommands, arguements, etc.
-    _cached: bool = True  # whether to use the cached version of the parsed command
+    _command_dict: dict = {}  # the parsed command, subcommands, arguements, etc.
     _log: logging.Logger = logging.getLogger(__name__)
     _global_args = {}  # global args to pass to the command
 
-    def __init__(self, _command: str = "step", _cached=True, **kwargs) -> None:
+    def __init__(self) -> None:
         """Initializes the StepCli class."""
-        if not _command.startswith("step"):
-            _command = f"step {_command}"
-        self._command = _command
-        self._cached = _cached
+        # self._cli_dict = {}
+        self._command = "step"
+        self._command_stack = ["step"]
+        self._command_dict = {}
         self._log = logging.getLogger(__name__)
-        self._log.debug(f"command: {_command}")
-        if kwargs:
-            self._log.debug(f"global args passed: {kwargs}")
-            self._global_args = kwargs
+        self._global_args = {}
+        self._command_dict = StepCliParser().parse(["step"])
 
-        if not _cached:
-            self._command_dict = StepCliParser(command=_command).parse()
-            return
-        # step itself isn't in dict, is the top level
-        self._command_dict = _base_command_dict
-        command_list = _command.split(" ")
-        for part in command_list[1:]:
-            self._log.debug(f"part: {part}")
-            self._command_dict = self._command_dict.get(part, {})
+    def _set_command(
+        self,
+    ) -> None:  # , next_step: str, global_args: dict | None = None) -> None:
+        """Makes the command to run."""
+        self._command = " ".join(self._command_stack)
+        self._log.debug(f"command: {self._command}")
+        self._command_dict = StepCliParser().parse(self._command_stack)
+        # if global_args:
+        #     self._log.debug(f"global args passed: {global_args}")
+        #     self._global_args = global_args
 
     def __str__(self) -> str:
         return self._command
@@ -82,7 +167,7 @@ class StepCli:
     def _add_args(self, **kwargs) -> None:
         self._global_args.update(kwargs)
 
-    def _process_output(self, raw_output: str) -> Any:
+    def _process_output(self, raw_output: str, command_ran: str) -> Any:
         output = raw_output
         if "admin" in self._command:
             return [StepAdmin(l) for l in output.split("\n")[1:]]
@@ -94,6 +179,9 @@ class StepCli:
             return output == "ok"
         elif self._command == "step version":
             return StepVersion(output)
+        elif self._command == "step ca certificate":
+            cert_path = command_ran.split(" ")[4].strip()
+            return StepCertificate(cert_path)
         try:
             output = json.loads(raw_output)
         except:
@@ -108,18 +196,61 @@ class StepCli:
         Returns:
             Any: The attribute of the StepCli class.
         """
-        if name in object.__getattribute__(self, "__dict__"):
+        if name == "__dict__":
             return object.__getattribute__(self, name)
-        if name.lower() in self._command_dict.get("__subcommands__", {}):
-            return StepCli(
-                f"{self._command} {name.lower()}",
-                _cached=self._cached,
-                **self._global_args,
+        # logging.getLogger(__name__).debug(
+        #         f"obj dict: {object.__getattribute__(self, '__dict__')}"
+        #     )
+        try:
+            if name in object.__getattribute__(self, "__dict__"):
+                return object.__getattribute__(self, name)
+            next_part = name.lower()
+            # self._command_stack.append(next_part)
+            # self._set_command()
+            # self._command = " ".join(self._command_stack)
+            # self._command_dict = StepCliParser().parse(self._command_stack)
+            match next_part:
+                case "_command":
+                    default_get = "step"
+                case "_command_stack":
+                    default_get = []
+                case "_command_dict":
+                    default_get = {}
+                case _:
+                    default_get = ""
+            # return object.__getattribute__(self, '__dict__').get(next_part, default_get)
+            # if next_part not in self._cli_dict and next_part in self._command_dict.get(
+            #     "__subcommands__", {}
+            # ):
+            #     # TODO: make crazy singleton to avoid this
+            #     self._cli_dict[next_part] = StepCli()._make_command(
+            #         self._command_stack + [next_part], self._global_args
+            #     )
+            # if next_part in self._cli_dict:
+            #     return self._cli_dict[next_part]
+            return object.__getattribute__(self, name)
+        except AttributeError:
+            logging.getLogger(__name__).debug(
+                f"obj dict: {object.__getattribute__(self, '__dict__')}"
             )
-        return object.__getattribute__(self, name)
+            if not self._command_dict:
+                self._command_dict = {}
+            if not self._command_stack:
+                self._command_stack = ["step"]
+            else:
+                raise AttributeError(f"StepCli object has no attribute {name}")
+        finally:
+            if self._command_stack:
+                self._command_stack.pop()
+                self._set_command()
 
     def __call__(
-        self, *args: Any, _no_prompt=False, _raw_output=False, **kwargs: Any
+        self,
+        *args: Any,
+        _no_stdin=False,
+        _no_stderr=False,
+        _raw_output=False,
+        **kwargs: Any,
     ) -> Any:
         """Runs the command.
 
@@ -131,66 +262,58 @@ class StepCli:
         self._log.debug(f"kwargs: {kwargs}")
         self._log.debug(f"command_dict: {self._command_dict}")
         command_to_run = self._command
-        if args:
-            command_to_run += " " + " ".join([str(r) for r in args])
-        if kwargs:
-            command_to_run += " " + self._make_args({**self._global_args, **kwargs})
+        named_args = {**self._global_args, **kwargs}
+        command_to_run += f" {StepArgs(self._command, [str(r) for r in args], named_args, self._command_dict.get('__arguments__', {}))}"
         try:
             self._log.debug(f"running command: {command_to_run}")
-            _pipe = subprocess.DEVNULL if _no_prompt else None
-            raw_output = (
-                subprocess.check_output(
-                    command_to_run, shell=True, stdin=_pipe, stderr=_pipe
-                )
-                .decode("utf-8")
-                .strip()
+            _stdin = subprocess.DEVNULL if _no_stdin else None
+            _stderr = subprocess.DEVNULL if _no_stderr else None
+            process_result = subprocess.run(
+                command_to_run,
+                shell=True,
+                check=True,
+                stdin=_stdin,
+                stderr=_stderr,
+                stdout=subprocess.PIPE,
             )
+            _raw_output = process_result.stdout.decode("utf-8").strip()
         except subprocess.CalledProcessError as e:
             self._log.error(f"step return error: {e}")
             return None
 
-        self._log.debug(f"raw_output: {raw_output}")
-        return raw_output if _raw_output else self._process_output(raw_output)
+        self._log.debug(f"raw_output: `{_raw_output}`")
+        return (
+            _raw_output
+            if _raw_output
+            else self._process_output(_raw_output, command_to_run)
+        )
 
-    def _make_args(self, args: Dict[str, Any]) -> str:
-        """Makes the arguments string.
-
-        Args:
-            args (Dict[str, Any]): The arguments to make.
+    @property
+    def _step_path(self) -> str:
+        """Gets the step path.
 
         Returns:
-            str: The arguments string.
+            str: The step path.
         """
-        rtn = ""
-        for key, value in args.items():
-            if key.startswith("_"):
-                continue
-            if key not in self._command_dict.get("__arguments__", {}):
-                raise ValueError(
-                    f"argument '{key}' not found in command '{self._command}'"
-                )
-            if value is True:
-                rtn += f" '--{key}'"
-            elif isinstance(value, List):
-                for v in value:
-                    rtn += f" '--{key}={v}'"
-            else:
-                rtn += f" '--{key}={value}'"
-        return rtn.strip(" ")
-
-    def _add_step_defaults(self, **kwargs) -> None:
-        """Adds arguments to the step defaults config file."""
-        if not kwargs:
-            return
         prev_command = self._command
         if self._command != "step":
             self._command = "step"
         # only works if called from a step command, so save old command if not
         step_path = self.path()
         self._command = prev_command
-        with open(f"{step_path}/config/defaults.json", "r") as defaults_file:
-            defaults = json.load(defaults_file)
-            defaults.update(kwargs)
+        return step_path
 
-        with open(f"{step_path}/config/defaults.json", "w") as defaults_file:
+    def _add_step_defaults(self, **kwargs) -> None:
+        """Adds arguments to the step defaults config file."""
+        if not kwargs:
+            return
+
+        new_args = kwargs.keys()
+        defaults = {}
+
+        with open(f"{self._step_path}/config/defaults.json") as defaults_file:
+            defaults = json.load(defaults_file)
+            defaults.update({str(k).replace("-", "_"): kwargs[k] for k in new_args})
+
+        with open(f"{self._step_path}/config/defaults.json", "w") as defaults_file:
             json.dump(defaults, defaults_file, indent=4)
